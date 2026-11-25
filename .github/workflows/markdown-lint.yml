@@ -1,4 +1,4 @@
-name: Documentação e Links
+name: Validadores e Documentação
 
 on:
   push:
@@ -6,11 +6,28 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: read
+
 jobs:
+  test-validators:
+    name: Testar Validadores da Skill (Node.js)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Executar Suíte de Testes dos Validadores
+        run: node --test skills/security-audit/*.test.cjs
+
   lint-docs:
     name: Validar Markdown e Links
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout do Repositório
         uses: actions/checkout@v4

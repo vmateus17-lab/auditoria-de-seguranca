@@ -1,57 +1,81 @@
 # Guia de Integração para Agentes e IDEs com IA
 
-Este documento explica como conectar e utilizar o arquivo mestre [`seguranca-hibrida-projetos-ia-api-bancos.md`](../seguranca-hibrida-projetos-ia-api-bancos.md) com as principais ferramentas de desenvolvimento assistido por IA e agentes autônomos.
+Este repositório oferece **duas formas complementares** de equipar agentes de codificação com capacidades avançadas de segurança:
+
+1. **Skill Multi-Agente Instalável (`skills/security-audit/`)**: transforma o agente em um orquestrador de auditoria em 6 fases com validação adversarial e validadores determinísticos JSON.
+2. **Framework Mestre de Engenharia Defensiva (`seguranca-hibrida-projetos-ia-api-bancos.md`)**: especifica 60 controles práticos (*Inspecionar → Corrigir → Verificar*) para hardening e remediação direta no código.
 
 ---
 
-## 1. Cursor IDE
+## 1. Instalação Rápida via Skills CLI (Antigravity, Claude Code, Cursor, Codex, Windsurf)
 
-No Cursor, você pode carregar o framework como uma **Regra de Projeto** (*Project Rule*) persistente:
+Instale a skill `security-audit` diretamente deste repositório público usando o [Skills CLI](https://skills.sh):
 
-1. Crie ou edite o arquivo `.cursorrules` na raiz do seu projeto.
-2. Adicione a seguinte instrução:
+```bash
+# Instalação no projeto atual
+npx skills add https://github.com/vmateus17-lab/auditoria-de-seguranca \
+  --skill security-audit
 
-```markdown
-# Segurança do Projeto
-Você atua como auditor e implementador de segurança seguindo rigorosamente as instruções do framework em:
-`./seguranca-hibrida-projetos-ia-api-bancos.md`.
-
-Antes de finalizar qualquer tarefa que envolva APIs, banco de dados, autenticação ou chamadas a modelos de IA:
-1. Verifique os controles aplicáveis (APP01-APP20, AI01-AI10, DB01-DB08, etc.).
-2. Valide parâmetros no servidor.
-3. Não insira dados confidenciais em logs ou prompts.
-4. Escreva testes negativos comprovando a segurança.
+# Instalação global para o seu usuário
+npx skills add https://github.com/vmateus17-lab/auditoria-de-seguranca \
+  --skill security-audit \
+  --global
 ```
 
----
-
-## 2. Windsurf (Cascade) / Claude Code
-
-Adicione ao arquivo de contexto de memória do projeto (`.windsurfrules` ou `CLAUDE.md`):
-
-```markdown
-## Protocolo de Segurança e Auditoria
-Consulte e aplique os 50 controles descritos em `seguranca-hibrida-projetos-ia-api-bancos.md`.
-- Toda nova rota de API deve validar BOLA (APP03) e schemas de entrada (APP11).
-- Toda query SQL deve usar prepared statements com allowlist para ordenações dinâmicas (DB05).
-- Agentes de IA e chamadas de ferramentas devem seguir o isolamento estrito de tenants e HITL (AI01-AI03).
-```
-
----
-
-## 3. GitHub Copilot Chat e Chatbots de IDE
-
-No início de uma sessão de revisão de código ou auditoria, referencie o arquivo diretamente usando `@workspace`:
+Após instalar, basta pedir naturalmente ao seu agente no repositório que deseja auditar:
 
 ```text
-@workspace /explain Avalie os arquivos modificados nesta branch contra os controles de segurança do arquivo seguranca-hibrida-projetos-ia-api-bancos.md e liste eventuais violações de BOLA, injeção de prompt ou grants excessivos de banco de dados.
+Execute uma auditoria de segurança completa neste repositório (perfil standard) e salve os artefatos em ~/audits/meu-projeto
+```
+
+Ou, para dúvidas focadas (ativa automaticamente o *Guidance Mode* sem criar arquivos):
+
+```text
+Revise a segurança das rotas em ./src/api focando em BOLA, sessão e cache
 ```
 
 ---
 
-## 4. Agentes em Pipelines CI/CD (Roo Code, DevIn, Agentes Customizados)
+## 2. Google Antigravity / Claude Code (`CLAUDE.md` ou Skills Locais)
 
-Em jobs automatizados de CI/CD, você pode alimentar o prompt do agente com o documento mestre como instrução do sistema (*System Instruction*), solicitando que o agente comente no Pull Request:
-- Uma tabela com os controles impactados pela PR;
-- Comprovação de que não há regressões de segurança;
-- Testes unitários de abuso cobrindo os caminhos alterados.
+Para projetos que desejam tanto a auditoria estruturada quanto a aplicação contínua dos 60 controles durante o desenvolvimento:
+
+1. Copie `skills/security-audit` para `.agents/skills/security-audit` (ou `~/.gemini/antigravity/skills/security-audit`).
+2. No arquivo `CLAUDE.md` ou nas regras do workspace, adicione:
+
+```markdown
+## Protocolo de Auditoria e Segurança Defensiva
+- Para auditorias completas ou pentests em código, utilize a skill `security-audit` (6 fases com validação adversarial e validadores `.cjs`).
+- Ao desenvolver ou corrigir rotas de API, bancos de dados, filas, frontends ou agentes de IA, aplique rigorosamente os 60 controles de `seguranca-hibrida-projetos-ia-api-bancos.md`:
+  - Valide BOLA/BFLA no servidor (`APP03`, `APP05`) e schemas fechados (`APP11`).
+  - Imponha PostgreSQL `FORCE ROW LEVEL SECURITY` (`DB02`) e prepared statements (`DB05`).
+  - Em IA/MCP, aplique isolamento de contexto, Action-Confirmation Binding (`AI03`) e trate saídas/metadados como não confiáveis (`AI10`, `STK04`).
+  - Escreva a trinca de testes (negativo, limite e legítimo) para toda correção.
+```
+
+---
+
+## 3. Cursor IDE (`.cursor/rules/` ou `.cursorrules`)
+
+Carregue o framework como Regra de Projeto persistente:
+
+```markdown
+# Segurança e Auditoria Contínua
+Atue como engenheiro e auditor de segurança seguindo os 60 controles de `./seguranca-hibrida-projetos-ia-api-bancos.md` e a disciplina de verificação de `./skills/security-audit/SKILL.md`.
+
+Antes de concluir alterações em autenticação, APIs, bancos, mensageria, client-side ou IA:
+1. Confirme o invariante de segurança no último ponto confiável de decisão no servidor.
+2. Não exponha segredos, tokens ou PII em logs, bundles SSR ou prompts.
+3. Não reporte hipóteses dependentes de deploy externo como falhas confirmadas sem evidência; classifique pendências externas separadamente.
+4. Crie testes automatizados de abuso comprovando o bloqueio.
+```
+
+---
+
+## 4. GitHub Copilot Chat e Revisão de Pull Requests em CI/CD
+
+Em sessões de revisão de PR ou pipelines automatizados de CI/CD:
+
+```text
+@workspace Avalie o diff desta branch usando os controles de seguranca-hibrida-projetos-ia-api-bancos.md e os guias de domínio em skills/security-audit/. Confirme apenas violações reais de fronteira de confiança com arquivo:linha exatos, separe hipóteses dependentes de deploy como needs_validation (sem severidade especulativa) e sugira o menor patch eficaz com teste de regressão.
+```

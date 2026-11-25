@@ -1,8 +1,8 @@
 # Guia de Contribuição
 
-Obrigado pelo interesse em contribuir com o **Framework de Segurança Híbrida**!
+Obrigado pelo interesse em contribuir com o **Auditoria de Segurança**!
 
-Este projeto é uma iniciativa comunitária aberta para estabelecer o padrão de segurança operacional definitivo em arquiteturas que combinam aplicações web/mobile, APIs, bancos de dados, infraestrutura moderna e agentes de IA.
+Este projeto é uma iniciativa aberta para estabelecer o padrão operacional de auditoria multi-agente e engenharia defensiva em arquiteturas que combinam aplicações web/mobile, APIs, bancos de dados, infraestrutura moderna, protocolos, código nativo e agentes de IA.
 
 ---
 
@@ -23,7 +23,7 @@ Este projeto é uma iniciativa comunitária aberta para estabelecer o padrão de
    git checkout -b feature/novo-controle-seguranca
    ```
 3. **Faça as Alterações:** Mantenha o formato conciso, imperativo, prático e tecnicamente fundamentado adotado no documento mestre.
-4. **Teste e Valide:** Certifique-se de que links markdown e tabelas estão bem formatados.
+4. **Teste e Valide:** Certifique-se de que links markdown e tabelas estão bem formatados e execute `node --test skills/security-audit/*.test.cjs` caso altere schemas ou validadores.
 5. **Faça Commit das Alterações:**
    ```bash
    git commit -m "feat(ai): adiciona mitigação avançada para indirect prompt injection em PDFs"

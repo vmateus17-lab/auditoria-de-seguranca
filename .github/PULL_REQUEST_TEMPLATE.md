@@ -13,6 +13,6 @@ Descreva de forma clara e concisa o que foi modificado, corrigido ou adicionado 
 - [ ] Adição de novo template, script ou documentação auxiliar
 
 ## Checklist do Colaborador
-- [ ] Li e segui as diretrizes do [CONTRIBUTING.md](CONTRIBUTING.md).
+- [ ] Li e segui as diretrizes do [CONTRIBUTING.md](../CONTRIBUTING.md).
 - [ ] Mantive o formato padrão (Inspecionar, Corrigir, Verificar) para qualquer controle editado.
 - [ ] Incluí referências oficiais e atualizadas quando aplicável.

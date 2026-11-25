@@ -13,7 +13,9 @@ assignees: ''
 - [ ] Integrações (INT)
 - [ ] Infraestrutura e DevSecOps (INF)
 - [ ] Stacks Específicas (STK)
+- [ ] Protocolos, Client-Side, IPC ou Memória (PRO / CLI / IPC / MEM)
 - [ ] Governança e Compliance (GOV)
+- [ ] Skill Multi-Agente / Domínios de Caça (`skills/security-audit/`)
 
 ### Descrição da Ameaça / Vetor de Ataque
 Descreva o ataque ou a falha técnica que motiva este controle.

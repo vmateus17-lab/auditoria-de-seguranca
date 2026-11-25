@@ -10,7 +10,7 @@ Por favor, **NÃO** abra uma issue pública no GitHub para relatar vulnerabilida
 
 Envie as informações detalhadas de forma privada através de um dos seguintes canais:
 - Criando um **Security Advisory Privado** diretamente na aba `Security` deste repositório no GitHub.
-- Ou enviando um e-mail para o mantenedor com o assunto `[SECURITY VULNERABILITY] seguranca-hibrida`.
+- Ou enviando um e-mail para o mantenedor com o assunto `[SECURITY VULNERABILITY] auditoria-de-seguranca`.
 
 ### Informações Úteis a Incluir
 Para nos ajudar a avaliar e resolver o problema rapidamente, inclua:
